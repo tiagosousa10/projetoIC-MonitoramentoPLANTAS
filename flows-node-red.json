@@ -1,0 +1,1025 @@
+[
+    {
+        "id": "46f124c057fcf60b",
+        "type": "tab",
+        "label": "Projeto - IoT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "af6955d4d14b8b1d",
+        "type": "mqtt in",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/temperatura",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7f86368c891708e2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "f95a39402e70ed79",
+                "658d5522c646ba52",
+                "a70b1e3f6c3dc00b"
+            ]
+        ]
+    },
+    {
+        "id": "09afcc42eef25dcf",
+        "type": "mqtt in",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/humidade_ar",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd399c0a6b8173a5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 420,
+        "wires": [
+            [
+                "0f8590dcc45bb2ae",
+                "3137754499acd38e",
+                "3cda47267d0e7d12"
+            ]
+        ]
+    },
+    {
+        "id": "773d5a45bc337455",
+        "type": "mqtt in",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/humidade_solo",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd399c0a6b8173a5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 580,
+        "wires": [
+            [
+                "cdcc8d7116c5e1a5",
+                "7881799a320987cd",
+                "5e49b9fbe13804bd"
+            ]
+        ]
+    },
+    {
+        "id": "844a3f0bde4b9a66",
+        "type": "mqtt in",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/luminosidade",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd399c0a6b8173a5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 820,
+        "wires": [
+            [
+                "f933c072120f4900",
+                "7c72ac25d2c7e733",
+                "9f42959d3afc2979"
+            ]
+        ]
+    },
+    {
+        "id": "06e9e6fa60a56e9d",
+        "type": "mqtt in",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/estado",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd399c0a6b8173a5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 900,
+        "wires": [
+            [
+                "d10b6755933649f1",
+                "9c238b66a34b8d6c"
+            ]
+        ]
+    },
+    {
+        "id": "f95a39402e70ed79",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-TEMPERATURA",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "0f8590dcc45bb2ae",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-HUMIDADEdoAR",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "cdcc8d7116c5e1a5",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-HUMIDADEdoSOLO",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "f933c072120f4900",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-LUMINOSIDADE",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "d10b6755933649f1",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-ESTADOdaPLANTA",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "019307cafef7a720",
+        "type": "ui_gauge",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "fe3c3637807819af",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "70",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "4bc50b12f2dff9b8",
+        "type": "ui_gauge",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "9da3e2c3c1ac6466",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidade do Ar",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 560,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "a371c3716bfe5c84",
+        "type": "ui_chart",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "9da3e2c3c1ac6466",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "Humidade Solo",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6de64c25e3a7c618",
+        "type": "ui_chart",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "fe3c3637807819af",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "label": "Luminosidade",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 600,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "658d5522c646ba52",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "parseFloat",
+        "func": "msg.payload = parseFloat(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 60,
+        "wires": [
+            [
+                "019307cafef7a720"
+            ]
+        ]
+    },
+    {
+        "id": "3137754499acd38e",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "parseFloat",
+        "func": "msg.payload = parseFloat(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "4bc50b12f2dff9b8"
+            ]
+        ]
+    },
+    {
+        "id": "7881799a320987cd",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "parseFloat",
+        "func": "msg.payload = parseFloat(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 480,
+        "wires": [
+            [
+                "a371c3716bfe5c84"
+            ]
+        ]
+    },
+    {
+        "id": "7c72ac25d2c7e733",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "parseFloat",
+        "func": "msg.payload = parseFloat(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 720,
+        "wires": [
+            [
+                "6de64c25e3a7c618"
+            ]
+        ]
+    },
+    {
+        "id": "9c238b66a34b8d6c",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "convertState",
+        "func": "// Converte número para estado legível\n\ntry {\n    let estado = parseInt(msg.payload);\n\n    if (isNaN(estado)) {\n        msg.payload = \"❌ Valor inválido (não é número)\";\n        return msg;\n    }\n\n    if (estado === 1) {\n        msg.payload = \"🌿 Planta saudável\";\n    } else if (estado === 2) {\n        msg.payload = \"⚠️ Atenção: Planta em alerta\";\n    } else if (estado === 3) {\n        msg.payload = \"🚨 Planta em estado crítico!\";\n    } else {\n        msg.payload = \"❓ Estado desconhecido\";\n    }\n}   catch(error) {\n    node.warn(\"Deu errado, nao recebi dados\")\n    return { payload: \"❌ Erro ao processar dados\" };\n\n\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 980,
+        "wires": [
+            [
+                "24d002d8f2e7eac2",
+                "420fd432acc7efe4"
+            ]
+        ]
+    },
+    {
+        "id": "24d002d8f2e7eac2",
+        "type": "ui_text",
+        "z": "46f124c057fcf60b",
+        "group": "f420557d2f5d5020",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Estado da Planta",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 670,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "420fd432acc7efe4",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-ESTADOcomTEXTO",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "79389229dae49ef3",
+        "type": "mqtt in",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/rega",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd399c0a6b8173a5",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 1000,
+        "y": 180,
+        "wires": [
+            [
+                "bdb75bed42393b3e",
+                "7a75bc1e28926d5f"
+            ]
+        ]
+    },
+    {
+        "id": "bdb75bed42393b3e",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-REGAautomatica",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "03436d5ea8ea31b7",
+        "type": "ui_gauge",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "f420557d2f5d5020",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Rega - Automática",
+        "label": "on/off",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "1",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 1370,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "7a75bc1e28926d5f",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "convertState",
+        "func": "if (msg.payload === \"on\") {\n    msg.payload = 1;\n} else if (msg.payload === \"off\") {\n    msg.payload = 0;\n} else {\n    msg.payload = 0; // valor de segurança\n}\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1150,
+        "y": 260,
+        "wires": [
+            [
+                "03436d5ea8ea31b7"
+            ]
+        ]
+    },
+    {
+        "id": "51806cfedd467b40",
+        "type": "ui_dropdown",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "label": "Modo de Rega",
+        "tooltip": "",
+        "place": "",
+        "group": "f420557d2f5d5020",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "auto",
+                "value": "Automático",
+                "type": "str"
+            },
+            {
+                "label": "manual",
+                "value": "Manual",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "planta/rega/modo",
+        "topicType": "str",
+        "className": "",
+        "x": 1200,
+        "y": 400,
+        "wires": [
+            [
+                "246669021be4fc67"
+            ]
+        ]
+    },
+    {
+        "id": "246669021be4fc67",
+        "type": "mqtt out",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "planta/rega/modo",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dd399c0a6b8173a5",
+        "x": 1490,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "830332b579eeec9e",
+        "type": "ui_button",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "f420557d2f5d5020",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Ligar Rega Manual",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "\"on\"",
+        "payloadType": "str",
+        "topic": "planta/rega/manual",
+        "topicType": "str",
+        "x": 1190,
+        "y": 500,
+        "wires": [
+            [
+                "5e158f83ba6e33e9"
+            ]
+        ]
+    },
+    {
+        "id": "aee71c6f2d1feda5",
+        "type": "ui_button",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "group": "f420557d2f5d5020",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Desligar Rega Manual",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "\"off\"",
+        "payloadType": "str",
+        "topic": "planta/rega/manual",
+        "topicType": "str",
+        "x": 1180,
+        "y": 560,
+        "wires": [
+            [
+                "5e158f83ba6e33e9"
+            ]
+        ]
+    },
+    {
+        "id": "5e158f83ba6e33e9",
+        "type": "mqtt out",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "dd399c0a6b8173a5",
+        "x": 1450,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "14a09f6639a957d2",
+        "type": "influxdb out",
+        "z": "46f124c057fcf60b",
+        "influxdb": "336dadb703d0cd10",
+        "name": "",
+        "measurement": "temperatura_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "ipb",
+        "bucket": "plantas",
+        "x": 920,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a70b1e3f6c3dc00b",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "payload",
+        "func": "msg.payload = [{\n  measurement: \"temperatura_data\",\n  tags: \"temperatura\" ,\n  fields: parseFloat(msg.payload),\n  timestamp: new Date()\n}];\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 160,
+        "wires": [
+            [
+                "14a09f6639a957d2",
+                "39228fdf7864bf40"
+            ]
+        ]
+    },
+    {
+        "id": "39228fdf7864bf40",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug 16",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5ef99211586e2256",
+        "type": "inject",
+        "z": "46f124c057fcf60b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "planta/temperatura",
+        "payload": "25.5",
+        "payloadType": "num",
+        "x": 240,
+        "y": 260,
+        "wires": [
+            [
+                "a70b1e3f6c3dc00b"
+            ]
+        ]
+    },
+    {
+        "id": "3cda47267d0e7d12",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "payload",
+        "func": "msg.payload = [{\n  measurement: \"humidade_data\",\n  tags: \"humidade\" ,\n  fields: parseFloat(msg.payload),\n  timestamp: new Date()\n}];\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 360,
+        "wires": [
+            [
+                "cdfd205571c2f8ed"
+            ]
+        ]
+    },
+    {
+        "id": "cdfd205571c2f8ed",
+        "type": "influxdb out",
+        "z": "46f124c057fcf60b",
+        "influxdb": "336dadb703d0cd10",
+        "name": "",
+        "measurement": "humidade_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "ipb",
+        "bucket": "plantas",
+        "x": 830,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "5e49b9fbe13804bd",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "payload",
+        "func": "msg.payload = [{\n  measurement: \"humidade_solo_data\",\n  tags: \"humidade_solo\" ,\n  fields: parseFloat(msg.payload),\n  timestamp: new Date()\n}];\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 540,
+        "wires": [
+            [
+                "2fa8dd2d5fe6a945"
+            ]
+        ]
+    },
+    {
+        "id": "2fa8dd2d5fe6a945",
+        "type": "influxdb out",
+        "z": "46f124c057fcf60b",
+        "influxdb": "336dadb703d0cd10",
+        "name": "",
+        "measurement": "humidade_solo_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "ipb",
+        "bucket": "plantas",
+        "x": 850,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "9f42959d3afc2979",
+        "type": "function",
+        "z": "46f124c057fcf60b",
+        "name": "payload",
+        "func": "msg.payload = [{\n  measurement: \"luminosidade_data\",\n  tags: \"luminosidade\" ,\n  fields: parseFloat(msg.payload),\n  timestamp: new Date()\n}];\nreturn msg;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 780,
+        "wires": [
+            [
+                "eb1d6870bafa9e0c"
+            ]
+        ]
+    },
+    {
+        "id": "eb1d6870bafa9e0c",
+        "type": "influxdb out",
+        "z": "46f124c057fcf60b",
+        "influxdb": "336dadb703d0cd10",
+        "name": "",
+        "measurement": "luminosidade_data",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "ipb",
+        "bucket": "plantas",
+        "x": 800,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "7f86368c891708e2",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "dd399c0a6b8173a5",
+        "type": "mqtt-broker",
+        "name": "broker.emqx.io:1883",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "10",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fe3c3637807819af",
+        "type": "ui_group",
+        "name": "Temperatura & Luminosidade",
+        "tab": "e7379d971d6e8997",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9da3e2c3c1ac6466",
+        "type": "ui_group",
+        "name": "Humidade do Ar e Solo",
+        "tab": "e7379d971d6e8997",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "f420557d2f5d5020",
+        "type": "ui_group",
+        "name": "Estado da Planta & Modo de Rega",
+        "tab": "e7379d971d6e8997",
+        "order": 3,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "336dadb703d0cd10",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB ",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "e7379d971d6e8997",
+        "type": "ui_tab",
+        "name": "monitoramentoPLANTAS",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
