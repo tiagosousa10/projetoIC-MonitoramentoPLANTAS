@@ -294,3 +294,10 @@ void loop() {
 
 - Mantém a ligação com o broker MQTT.  
 - Executa continuamente a lógica de leitura e publicação dos dados.
+
+## Conclusão
+
+Este projeto demonstra como a Internet das Coisas pode ser aplicada de forma eficaz no cuidado de plantas domésticas, combinando sensores, automação e monitorização remota.
+A integração entre o ESP32, MQTT, Node-RED e InfluxDB permite criar uma solução funcional, económica e extensível.
+
+Com um sistema de feedback visual (LED RGB), controlo manual ou automático da rega e visualização em tempo real dos dados ambientais, este projeto oferece uma abordagem acessível e educativa para gestão inteligente de recursos naturais em ambiente doméstico.
