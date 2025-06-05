@@ -114,7 +114,9 @@ Criar um sistema inteligente para monitorizar plantas domésticas com atuação 
 
 ## 🧩 Explicação do Código ESP32
 
-O ficheiro `sketch.ino` está dividido em blocos funcionais, cada um com uma função clara no funcionamento do sistema:
+O ficheiro `sketch.ino` está dividido em blocos funcionais, com responsabilidades bem definidas para monitorizar os sensores e controlar o sistema de rega de forma inteligente.
+
+---
 
 ### 📚 1. Bibliotecas e Definições
 
@@ -124,9 +126,9 @@ O ficheiro `sketch.ino` está dividido em blocos funcionais, cada um com uma fun
 #include <DHT.h>
 ```
 
-- `WiFi.h`: gere a conexão à rede sem fios.  
-- `PubSubClient.h`: permite comunicação com o broker MQTT.  
-- `DHT.h`: usada para leitura do sensor de temperatura e humidade DHT22.
+- `WiFi.h`: gere a ligação Wi-Fi.
+- `PubSubClient.h`: comunicação MQTT com o broker.
+- `DHT.h`: leitura do sensor de temperatura e humidade DHT22.
 
 ---
 
@@ -134,13 +136,12 @@ O ficheiro `sketch.ino` está dividido em blocos funcionais, cada um com uma fun
 
 ```cpp
 const char* ssid = "Wokwi-GUEST";
-const char* password = "";
 const char* mqtt_server = "broker.emqx.io";
 const int mqtt_port = 1883;
 const char* clientID = "esp32_planta_123";
 ```
 
-Define os dados para ligação Wi-Fi e ao broker MQTT.
+Define os dados de rede e do broker MQTT que o ESP32 irá utilizar.
 
 ---
 
@@ -158,24 +159,20 @@ Define os dados para ligação Wi-Fi e ao broker MQTT.
 #define SOIL_THRESHOLD 1500
 ```
 
-Configura os pinos usados pelos sensores e atuadores.  
-A constante `SOIL_THRESHOLD` define o limite mínimo de humidade do solo.
+Associa os pinos aos sensores e atuadores. A constante `SOIL_THRESHOLD` define o nível crítico de humidade do solo.
 
 ---
 
-### 🧱 4. Objetos e Variáveis Globais
+### 🧱 4. Objetos e Estados Globais
 
 ```cpp
-DHT dht(DHTPIN, DHTTYPE);
-WiFiClient espClient;
-PubSubClient client(espClient);
-
-bool modoManual = false;
+enum ModoRega { DESLIGADO, MANUAL, AUTO };
+ModoRega modoRega = DESLIGADO;
 bool estadoManual = false;
 ```
 
-Criação de objetos para o sensor DHT, cliente Wi-Fi e cliente MQTT.  
-As variáveis `modoManual` e `estadoManual` controlam a lógica de rega.
+- `modoRega`: enumeração com os três modos possíveis de operação.
+- `estadoManual`: armazena o estado da bomba no modo manual.
 
 ---
 
@@ -185,28 +182,27 @@ As variáveis `modoManual` e `estadoManual` controlam a lógica de rega.
 void callback(char* topic, byte* payload, unsigned int length)
 ```
 
-Esta função reage a mensagens recebidas nos tópicos MQTT:
-- `"planta/rega/modo"`: muda entre modo automático e manual.
-- `"planta/rega/manual"`: ativa ou desativa a bomba (LED vermelho) em modo manual.
+Processa mensagens recebidas via MQTT:
+
+- `planta/rega/modo`: altera o modo de rega (`auto`, `manual` ou `desligado`).
+- `planta/rega/manual`: ativa/desativa a bomba em modo manual com `"on"` ou `"off"`.
+
+Inclui mensagens de debug via `Serial.println()`.
 
 ---
 
-### ⚙️ 6. Setup
+### ⚙️ 6. Setup Inicial
 
 ```cpp
-void setup() {
-  dht.begin();
-  WiFi.begin(ssid, password);
-  client.setServer(mqtt_server, mqtt_port);
-  client.setCallback(callback);
-  // Configura pinos como OUTPUT
-}
+void setup()
 ```
 
-- Inicializa o sensor DHT.  
-- Liga-se ao Wi-Fi.  
-- Define o servidor MQTT e a função de callback.  
-- Inicializa os pinos de atuadores como saída.
+Inicializa:
+
+- comunicação serial;
+- sensores e pinos de entrada/saída;
+- ligação Wi-Fi;
+- cliente MQTT com subscrição aos tópicos relevantes.
 
 ---
 
@@ -215,85 +211,87 @@ void setup() {
 ```cpp
 float temp = dht.readTemperature();
 float hum = dht.readHumidity();
-int ldr = analogRead(LDR_PIN);
+int luz = analogRead(LDR_PIN);
 int solo = analogRead(POT_PIN);
 ```
 
-Recolhe os valores de temperatura, humidade do ar, luminosidade e humidade do solo.
+Recolhe dados ambientais para avaliação e envio à dashboard.
 
 ---
 
 ### 📤 8. Publicação dos Dados
 
 ```cpp
-client.publish("planta/temperatura", String(temp).c_str());
-client.publish("planta/humidade_ar", String(hum).c_str());
-client.publish("planta/luminosidade", String(ldr).c_str());
-client.publish("planta/humidade_solo", String(solo).c_str());
+client.publish("planta/temperatura", ...);
+client.publish("planta/humidade_ar", ...);
+client.publish("planta/luminosidade", ...);
+client.publish("planta/humidade_solo", ...);
 ```
 
-Publica os dados lidos nos tópicos MQTT para visualização e armazenamento.
+Envia os dados lidos por MQTT para visualização e armazenamento.
 
 ---
 
-### 📊 9. Estado da Planta
+### 📊 9. Avaliação do Estado da Planta
 
 ```cpp
-int estado = 1; // 1 = saudável
-
-if (...) estado = 1;
-else if (...) estado = 2;
-else estado = 3;
-
-client.publish("planta/estado", String(estado).c_str());
+int avaliarPlanta(float t, float h, int l, int s)
 ```
 
-- Classifica o estado da planta com base em limites definidos.  
-- Envia o estado para o Node-RED, que atualiza o LED RGB e o texto na dashboard.
+Analisa os valores dos sensores e devolve:
+
+- `1` para saudável;
+- `2` para alerta;
+- `3` para estado crítico.
 
 ---
 
-### 💧 10. Controlo da Rega
+### 🌈 10. Feedback Visual com LED RGB
 
 ```cpp
-if (!modoManual && solo < SOIL_THRESHOLD) {
-  digitalWrite(PUMP_PIN, HIGH);
-  client.publish("planta/rega", "on");
+mostrarEstadoLED(estado)
+```
+
+Controla as cores do LED RGB com base no estado da planta:
+
+- Verde = saudável  
+- Amarelo = alerta  
+- Vermelho = crítico
+
+---
+
+### 💧 11. Controlo Inteligente da Rega
+
+```cpp
+switch (modoRega) {
+  case DESLIGADO:
+    // bomba sempre desligada
+  case MANUAL:
+    // bomba controlada por comando externo
+  case AUTO:
+    // bomba ativa se humidade do solo < 1500
 }
 ```
 
-- Em modo automático: ativa a bomba se a humidade do solo for baixa.  
-- Em modo manual: a bomba é controlada via comandos MQTT externos.
+Lógica central do sistema:
 
----
-
-### 🌈 11. Feedback Visual com LED RGB
-
-```cpp
-digitalWrite(RED_PIN, estado == 3);
-digitalWrite(GREEN_PIN, estado == 1);
-digitalWrite(BLUE_PIN, estado == 2);
-```
-
-Define a cor do LED RGB com base no estado da planta:
-- Verde: saudável  
-- Azul: alerta  
-- Vermelho: crítico  
+- `DESLIGADO`: bomba desativa.
+- `MANUAL`: bomba acionada por comando MQTT (`on`/`off`).
+- `AUTO`: bomba ligada automaticamente com base na humidade do solo.
 
 ---
 
 ### 🔁 12. Loop Principal
 
 ```cpp
-void loop() {
-  if (!client.connected()) reconnect();
-  client.loop();
-  // Aguarda 5 segundos entre envios
-}
+void loop()
 ```
 
-- Mantém a ligação com o broker MQTT.  
-- Executa continuamente a lógica de leitura e publicação dos dados.
+- Mantém a ligação ao broker;
+- Lê sensores, publica dados;
+- Avalia o estado da planta;
+- Controla a bomba de rega de acordo com o modo selecionado;
+- Atualiza LEDs e console com feedback contínuo.
 
 ## Conclusão
 
