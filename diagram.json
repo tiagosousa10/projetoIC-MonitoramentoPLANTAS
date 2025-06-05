@@ -8,10 +8,10 @@
     {
       "type": "wokwi-rgb-led",
       "id": "rgb1",
-      "top": 133.4,
-      "left": -162.9,
+      "top": 123.8,
+      "left": -278.1,
       "rotate": 270,
-      "attrs": { "common": "anode" }
+      "attrs": { "common": "cathode" }
     },
     { "type": "wokwi-potentiometer", "id": "pot1", "top": -202.9, "left": 105.4, "attrs": {} },
     {

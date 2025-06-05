@@ -26,25 +26,37 @@ DHT dht(DHTPIN, DHTTYPE);
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-bool modoManual = false;
+// --- Estados de operação ---
+enum ModoRega { DESLIGADO, MANUAL, AUTO };
+ModoRega modoRega = DESLIGADO;
 bool estadoManual = false;
 
-// MQTT Callback
+// --- MQTT Callback ---
 void callback(char* topic, byte* payload, unsigned int length) {
   payload[length] = '\0';
   String msg = String((char*)payload);
   String topico = String(topic);
 
+  Serial.println("[DEBUG] Tópico recebido: " + topico);
+  Serial.println("[DEBUG] Mensagem recebida: " + msg);
+
+
   if (topico == "planta/rega/modo") {
-    modoManual = (msg == "manual");
-    Serial.println("[INFO] Modo de rega definido para: " + msg);
+    if (msg == "manual") {
+      modoRega = MANUAL;
+    } else if (msg == "auto") {
+      modoRega = AUTO;
+    } else {
+      modoRega = DESLIGADO;
+    }
+    Serial.println("[INFO] Modo de rega atualizado para: " + msg);
   } else if (topico == "planta/rega/manual") {
     estadoManual = (msg == "on");
-    digitalWrite(PUMP_PIN, estadoManual ? HIGH : LOW);  // Aplica imediatamente
-    Serial.println("[INFO] Rega manual alterada para: " + msg);
+    Serial.println("[INFO] Comando manual recebido: " + msg);
   }
 }
 
+// --- Conectar ao Wi-Fi ---
 void setup_wifi() {
   delay(10);
   Serial.println("[INFO] Ligando WiFi...");
@@ -56,6 +68,7 @@ void setup_wifi() {
   Serial.println("\n[INFO] WiFi conectado!");
 }
 
+// --- Reconnect MQTT ---
 void reconnect() {
   while (!client.connected()) {
     Serial.print("[INFO] Conectando MQTT...");
@@ -71,6 +84,7 @@ void reconnect() {
   }
 }
 
+// --- Setup inicial ---
 void setup() {
   Serial.begin(115200);
   dht.begin();
@@ -85,9 +99,11 @@ void setup() {
   setup_wifi();
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
+
   Serial.println("[INFO] Sistema inicializado com sucesso.");
 }
 
+// --- Loop principal ---
 void loop() {
   if (!client.connected()) reconnect();
   client.loop();
@@ -112,21 +128,32 @@ void loop() {
   mostrarEstadoLED(estado);
   client.publish("planta/estado", String(estado).c_str());
 
-  // Lógica de rega
-  if (modoManual) {
-    digitalWrite(PUMP_PIN, estadoManual ? HIGH : LOW);
-    client.publish("planta/rega", estadoManual ? "on" : "off");
-    Serial.println("[INFO] Modo manual: bomba " + String(estadoManual ? "ligada" : "desligada"));
-  } else {
-    bool regar = (solo < SOIL_THRESHOLD);
-    digitalWrite(PUMP_PIN, regar ? HIGH : LOW);
-    client.publish("planta/rega", regar ? "on" : "off");
-    Serial.println("[INFO] Modo auto: bomba " + String(regar ? "ligada" : "desligada"));
+  // --- Controlo de Rega ---
+  switch (modoRega) {
+    case DESLIGADO:
+      digitalWrite(PUMP_PIN, LOW);
+      client.publish("planta/rega", "off");
+      Serial.println("[INFO] Modo desligado: bomba desativada");
+      break;
+
+    case MANUAL:
+      digitalWrite(PUMP_PIN, estadoManual ? HIGH : LOW);
+      client.publish("planta/rega", estadoManual ? "on" : "off");
+      Serial.println("[INFO] Modo manual: bomba " + String(estadoManual ? "ligada" : "desligada"));
+      break;
+
+    case AUTO:
+      bool regar = (solo < SOIL_THRESHOLD);
+      digitalWrite(PUMP_PIN, regar ? HIGH : LOW);
+      client.publish("planta/rega", regar ? "on" : "off");
+      Serial.println("[INFO] Modo automático: bomba " + String(regar ? "ligada" : "desligada"));
+      break;
   }
 
   delay(5000);
 }
 
+// --- Avaliação do Estado da Planta ---
 int avaliarPlanta(float t, float h, int l, int s) {
   int alerta = 0;
   if (t < 10 || t > 35) return 3;
@@ -140,22 +167,28 @@ int avaliarPlanta(float t, float h, int l, int s) {
   return (alerta >= 2) ? 2 : 1;
 }
 
+// --- LED RGB conforme estado ---
 void mostrarEstadoLED(int estado) {
   switch (estado) {
     case 1:
       digitalWrite(RED_PIN, LOW);
       digitalWrite(GREEN_PIN, HIGH);
       digitalWrite(BLUE_PIN, LOW);
+      Serial.println("Planta saudável!");
       break;
     case 2:
       digitalWrite(RED_PIN, HIGH);
       digitalWrite(GREEN_PIN, HIGH);
       digitalWrite(BLUE_PIN, LOW);
+      Serial.println("Atenção: Planta em alerta.");
       break;
     case 3:
       digitalWrite(RED_PIN, HIGH);
       digitalWrite(GREEN_PIN, LOW);
       digitalWrite(BLUE_PIN, LOW);
+      Serial.println("Planta em estado crítico!");
       break;
+    default:
+      Serial.println("Estado desconhecido.");
   }
 }
