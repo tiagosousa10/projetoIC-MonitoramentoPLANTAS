@@ -538,7 +538,7 @@
         "width": 0,
         "height": 0,
         "gtype": "gage",
-        "title": "Rega - Automática",
+        "title": "Sistema de Rega",
         "label": "on/off",
         "format": "{{value}}",
         "min": 0,
@@ -593,12 +593,17 @@
         "options": [
             {
                 "label": "auto",
-                "value": "Automático",
+                "value": "auto",
                 "type": "str"
             },
             {
                 "label": "manual",
-                "value": "Manual",
+                "value": "manual",
+                "type": "str"
+            },
+            {
+                "label": "desligado",
+                "value": "desligado",
                 "type": "str"
             }
         ],
@@ -610,7 +615,8 @@
         "y": 400,
         "wires": [
             [
-                "246669021be4fc67"
+                "246669021be4fc67",
+                "96f229be0e191a76"
             ]
         ]
     },
@@ -629,7 +635,7 @@
         "expiry": "",
         "broker": "dd399c0a6b8173a5",
         "x": 1490,
-        "y": 400,
+        "y": 380,
         "wires": []
     },
     {
@@ -648,7 +654,7 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "\"on\"",
+        "payload": "on",
         "payloadType": "str",
         "topic": "planta/rega/manual",
         "topicType": "str",
@@ -656,7 +662,8 @@
         "y": 500,
         "wires": [
             [
-                "5e158f83ba6e33e9"
+                "5e158f83ba6e33e9",
+                "f7995249d66ed1bb"
             ]
         ]
     },
@@ -676,7 +683,7 @@
         "bgcolor": "",
         "className": "",
         "icon": "",
-        "payload": "\"off\"",
+        "payload": "off",
         "payloadType": "str",
         "topic": "planta/rega/manual",
         "topicType": "str",
@@ -902,6 +909,40 @@
         "bucket": "plantas",
         "x": 800,
         "y": 760,
+        "wires": []
+    },
+    {
+        "id": "96f229be0e191a76",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-modoDeREGA",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1420,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "f7995249d66ed1bb",
+        "type": "debug",
+        "z": "46f124c057fcf60b",
+        "name": "debug-modoDeREGA-ON/OFF",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1490,
+        "y": 460,
         "wires": []
     },
     {
